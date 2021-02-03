@@ -1,0 +1,27 @@
+<div class="wrap">
+  <div class="row">
+    <label>Username</label>
+    <input 
+      ngModel
+      name="username"
+      id="username"
+      type="text" 
+      value=""
+      required
+      #username="ngModel"
+      autocomplete="off"
+    />
+    <small class="message"  >
+      <ng-template [ngIf]="username.errors && (username.dirty || username.touched)">
+        <p class="error" *ngIf="username.errors.required">
+          Username is required
+        </p>
+      </ng-template>
+    </small>
+  </div>
+  <div class="row">
+    <label>E-mail</label>
+    <input type="text" value=""/>
+    <small class="message">test</small>
+  </div>
+</div>
