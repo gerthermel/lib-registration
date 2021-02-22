@@ -50,7 +50,6 @@ export class formatCheckDirective implements Validator {
               if( res && res.isTaken == true){
                 alias.setErrors({'isTaken': true});
               }else{
-                alias.setErrors({'isTaken': false});
                 alias.setErrors(null);
               }
               resolve(res)
