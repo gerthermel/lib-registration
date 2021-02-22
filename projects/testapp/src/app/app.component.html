@@ -7,14 +7,26 @@
       id="username"
       type="text" 
       value=""
-      required
       #username="ngModel"
       autocomplete="off"
+      formatCheck
     />
     <small class="message"  >
       <ng-template [ngIf]="username.errors && (username.dirty || username.touched)">
         <p class="error" *ngIf="username.errors.required">
           Username is required
+        </p>
+        <p class="error" *ngIf="username.errors.tooShort">
+          Username must be at least 4 characters long.
+        </p>
+        <p class="error" *ngIf="username.errors.illegalChars">
+          Invalid format. Special characters are not allowed.
+        </p>
+        <p class="error" *ngIf="username.errors.isTaken">
+          This username is already taken.
+        </p>
+        <p class="error" *ngIf="username.errors.onlyNumbers">
+          Username must also contain letters.
         </p>
       </ng-template>
     </small>
