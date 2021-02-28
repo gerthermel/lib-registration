@@ -19,8 +19,19 @@ export class AppComponent implements OnInit{
 
   }
 
-  onSubmit(newUserForm:NgForm){
-    if(newUserForm.valid){
+  onSubmit(f:NgForm){
+    var data = f.value
+    console.log()
+    for( let key of Object.keys(data) ){
+      if( !data[key] ){
+        f.form.controls[key].setErrors({'required': true})
+        f.form.controls[key].markAsDirty()
+        f.form.controls[key].markAsTouched()
+        console.log(key+' empty')
+      }
+    }
+    return
+    if(f.valid){
       console.log('valid')
       this.formValid = true;
     }else{
