@@ -1,5 +1,7 @@
 $font-color:#c5c5c5;
+$neutral-color:#c5c5c5;
 $error-color:#ff4242;
+$valid-color:#5cb85c;
 html{
   padding:55px;
 }
@@ -40,16 +42,30 @@ html{
     border:solid 1px $font-color;
     padding:15px 15px 13px 15px;
     background-color: #f8f8f8;
+    box-sizing: border-box;
     &:focus{
       outline-color: #3cabec;
     }
     &.ng-dirty.ng-invalid.ng-touched{
       border:solid 1px $error-color;
     }
-    &.ng-invalid:focus{
+    &.ng-invalid:not(.ng-pristine):not(.pending):focus
+    {
       outline-color: $error-color !important; 
     }
-    
+    &.ng-valid:not(.pending){
+      border:solid thin $valid-color;
+      &:focus{
+        outline-color: $valid-color !important;  
+      }
+    }
+    &#submit{
+      background-color:#5cb85c;
+      color:white;
+      outline: none;
+      border:none;
+      cursor:pointer;
+    }
   }
   small{
     font-size:12px;
@@ -58,6 +74,10 @@ html{
     min-height:14px;
     .error{
       color:$error-color;
+      margin:0px;
+    }
+    .neutral{
+      color:$neutral-color;
       margin:0px;
     }
   }
