@@ -15,6 +15,8 @@ export class CreateAccountService {
   };
   private hasRan = false;
   private generalTimeout:any;
+  private emailTimeout:any;
+  private passwordTimeout:any;
   private timeout:any = 600;
 
   constructor(
@@ -26,10 +28,9 @@ export class CreateAccountService {
   async validateUsername(c: FormControl){
     clearTimeout(this.generalTimeout);
     if(!c.pristine){
-      console.log('1')
       this.pending.username = true;
       this.generalTimeout = setTimeout(()=>{
-        this.timeoutWrapp(c).then( ()=>{
+        this.usernameValidationConditions(c).then( ()=>{
           this.pending.username = false;
         }
         );
@@ -37,7 +38,7 @@ export class CreateAccountService {
     }
   }
 
-  timeoutWrapp(c:FormControl) {
+  usernameValidationConditions(c:FormControl) {
     return new Promise((resolve, reject)=> {
       var alias = c
       if( !alias.value){
@@ -65,22 +66,56 @@ export class CreateAccountService {
     });
   }
 
-  validateData(c:FormControl){
-    console.log('1')
-    setTimeout(()=>{
-      this.pending.username = false;
-    },2000)
-      /*
-      if(c.value){
-        this.pending.username = true;
-        console.log(this.pending.username)
-        var alias = c
-        
+  async validateEmail(c:FormControl){
+    clearTimeout(this.emailTimeout);
+    if(!c.pristine){
+      this.pending.email = true;
+      this.emailTimeout = setTimeout(()=>{
+        this.emailValidationConditions(c).then( ()=>{
+          this.pending.email = false;
+        }
+        );
+      },this.timeout)
+    }
+  }
+
+  emailValidationConditions(c:FormControl) {
+    return new Promise( (resolve, reject  )=>{
+      if(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(c.value)==false){//if not only numbers and letters
+        c.setErrors({'invalid': true});
       }else{
-        c.setErrors({'required':true});
-        return null;
+        const promise = new Promise<any>((resolve, reject) =>{
+          this.http.post( 'https://localhost:8080/server/create-account/email', {email: c.value}, {withCredentials: true} ).subscribe(
+          (res: any)=>{
+            if( res && res.isTaken == true){
+              c.setErrors({'isTaken': true});
+            }else{
+              c.setErrors(null);
+            }
+            resolve(res)
+          })	
+        })
       }
-      */
+      resolve(null);
+    })
+  }
+
+  async validatePassword(c:FormControl) {
+    this.pending.password = true;
+    clearTimeout(this.passwordTimeout);
+    this.passwordTimeout = setTimeout(()=>{
+      if( !c.value ){
+        c.setErrors({'required':true});
+      }else{
+        c.setErrors(null);
+      }
+      this.pending.password = false;
+    }, this.timeout);
+
+  }
+
+  passwordValidationConditions(c:FormControl) {
+
   }
 
 }

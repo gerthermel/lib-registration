@@ -8,12 +8,14 @@ import { FormsModule } from '@angular/forms';
 import { usernameDirective } from './username.directive'
 import { emailDirective } from './email.directive'
 import { HttpClientModule } from '@angular/common/http';
+import { passwordDirective } from './password.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     usernameDirective,
     emailDirective,
+    passwordDirective,
   ],
   imports: [
     FormsModule,

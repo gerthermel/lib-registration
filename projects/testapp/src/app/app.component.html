@@ -46,7 +46,7 @@
         ngModel
         name="email"
         id="email"
-        class="pending"
+        [ngClass]="{'pending': this.service.pending.email == true}"
         type="text" 
         value=""
         #email="ngModel"
@@ -55,6 +55,11 @@
       />
       <small class="message"  >
         <ng-template [ngIf]="email.errors && (email.dirty || email.touched)">
+          <ng-template [ngIf]="this.service.pending.email">
+            <p class="neutral">
+              Checking...
+            </p>
+          </ng-template>
           <p class="error" *ngIf="!email.pristine && email.errors.required">
             Email is required.
           </p>
@@ -73,12 +78,12 @@
       ngModel
       name="password"
       id="password"
-      class="pending"
       type="password" 
+      [ngClass]="{'pending': this.service.pending.password == true}"
       value=""
       #password="ngModel"
       autocomplete="off"
-      required
+      password
       />
       <small class="message"  >
         <ng-template [ngIf]="password.errors && (password.dirty || password.touched)">

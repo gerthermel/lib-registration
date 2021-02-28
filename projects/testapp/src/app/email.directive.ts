@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { Observable } from 'rxjs';
+import { CreateAccountService } from './create-account.service';
  
  
 @Directive({
@@ -20,13 +21,15 @@ export class emailDirective implements Validator {
   private timeout:any = 600;
   constructor(
     public http:HttpClient,
+    public service:CreateAccountService,
   ){
   }
 
   validate(c: FormControl) {
-    return this.validateUsername(c);
+    return this.service.validateEmail(c);
   }  
 
+  /*
   async validateUsername(c: FormControl){
     clearTimeout(this.generalTimeout);
     this.generalTimeout = await setTimeout(() => {
@@ -56,5 +59,6 @@ export class emailDirective implements Validator {
     c.setErrors(null);
     return null;
   }
+  */
 
 }
