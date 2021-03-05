@@ -1,10 +1,111 @@
-<div class="row">
-  <label>Username</label>
-  <input type="text" value="Gerth89"/>
-  <small class="message">test</small>
-</div>
-<div class="row">
-  <label>E-mail</label>
-  <input type="text" value=""/>
-  <small class="message">test</small>
+<div class="wrap">
+  <form #newUserForm="ngForm">
+    <div class="row">
+      <label>Username</label>
+      <input 
+        ngModel
+        name="username"
+        id="username"
+        class="pending"
+        type="text" 
+        value=""
+        #username="ngModel"
+        [ngClass]="{'pending': this.service.pending.username == true}"
+        autocomplete="off"
+        username
+        
+      />
+      <small class="message"  >
+        <ng-template [ngIf]="this.service.pending.username">
+          <p class="neutral">
+            Checking...
+          </p>
+        </ng-template>
+        <ng-template [ngIf]="username.errors && (username.dirty || username.touched)">
+          <p class="error" *ngIf="!username.pristine && username.errors.required">
+            Username is required
+          </p>
+          <p class="error" *ngIf="!username.pristine && username.errors.tooShort">
+            Username must be at least 4 characters long.
+          </p>
+          <p class="error" *ngIf="!username.pristine && username.errors.illegalChars">
+            Invalid format. Special characters are not allowed.
+          </p>
+          <p class="error" *ngIf="!username.pristine && username.errors.isTaken">
+            This username is already taken.
+          </p>
+          <p class="error" *ngIf="!username.pristine && username.errors.onlyNumbers">
+            Username must also contain letters.
+          </p>
+        </ng-template>
+      </small>
+    </div>
+    <div class="row">
+      <label>E-mail</label>
+      <input 
+        ngModel
+        name="email"
+        id="email"
+        [ngClass]="{'pending': this.service.pending.email == true}"
+        type="text" 
+        value=""
+        #email="ngModel"
+        autocomplete="off"
+        email
+      />
+      <small class="message"  >
+        <ng-template [ngIf]="email.errors && (email.dirty || email.touched)">
+          <ng-template [ngIf]="this.service.pending.email">
+            <p class="neutral">
+              Checking...
+            </p>
+          </ng-template>
+          <p class="error" *ngIf="!email.pristine && email.errors.required">
+            Email is required.
+          </p>
+          <p class="error" *ngIf="!email.pristine && email.errors.invalid">
+            Invalid email format.
+          </p>
+          <p class="error" *ngIf="!email.pristine && email.errors.isTaken">
+            This email is already in use.
+          </p>
+        </ng-template>
+      </small>
+    </div>
+    <div class="row">
+      <label>Password</label>
+      <input 
+      ngModel
+      name="password"
+      id="password"
+      type="password" 
+      [ngClass]="{'pending': this.service.pending.password == true}"
+      value=""
+      #password="ngModel"
+      autocomplete="off"
+      password
+      />
+      <small class="message"  >
+        <ng-template [ngIf]="password.errors && (password.dirty || password.touched)">
+          <p class="error" *ngIf="!password.pristine && password.errors.required">
+            Password is required.
+          </p>
+          <p class="error" *ngIf="!password.pristine && password.errors.weak">
+            Too weak.
+          </p>
+
+        </ng-template>
+      </small>
+    </div>
+    <div class="row">
+      <input id="submit" type="submit" value="Create Account" (click)="onSubmit(newUserForm)"/>
+      <small class="message"  >
+        <ng-template [ngIf]="!this.formValid">
+          <p class="error" *ngIf="!this.formValid">
+            Check that all inputs are filled without any errors.
+          </p>
+        </ng-template>
+      </small>
+    </div>
+  </form>
 </div>

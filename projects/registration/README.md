@@ -1,24 +1,9 @@
-# Registration
+# About
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
+This library was created for learning purpose. Documentation has been written enough for me to later remember how to use this library.
 
-## Code scaffolding
-
-Run `ng generate component component-name --project registration` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project registration`.
-> Note: Don't forget to add `--project registration` or else it will be added to the default project in your `angular.json` file. 
-
-## Build
-
-Run `ng build registration` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build registration`, go to the dist folder `cd dist/registration` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test registration` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## How to use
+`validationApi` is required. It's a url that angular will use to check if username or email is already in use. Endpoint has to include both `emailTakenCheck` and `userTakenCheck` (POST). Enpoints have to return `Boolean` (true/false).
+### Example
+`<germel-registration [validationApi]="'http://localhost:8080/server/create-account/'"></germel-registration>`
+                             

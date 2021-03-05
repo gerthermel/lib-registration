@@ -1,16 +1,23 @@
 $font-color:#c5c5c5;
+$neutral-color:#c5c5c5;
+$error-color:#ff4242;
+$valid-color:#5cb85c;
 html{
   padding:55px;
 }
+.wrap{
+    width: 400px;
+    padding:100px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:100px;
+}
 .row{
-  margin-bottom:15px;
+  margin-bottom:24px;
   width:400px;
   color:#444444;
-  background-color: #f8f8f8;
   font-family: arial;
-  border-radius: 8px;
-  border:solid 1px $font-color;
-  padding:4px 6px 6px 9px;
+
   label,
   input,
   small{
@@ -22,6 +29,7 @@ html{
     color:$font-color;
     font-family: Arial, Helvetica, sans-serif;
     margin-bottom:6px;
+    text-transform: uppercase;
   }
   input{
     margin-top:6px;
@@ -30,13 +38,47 @@ html{
     background:transparent;
     border:none;
     font-weight: 600;
-    
+    border-radius: 5px;
+    border:solid 1px $font-color;
+    padding:15px 15px 13px 15px;
+    background-color: #f8f8f8;
+    box-sizing: border-box;
+    &:focus{
+      outline-color: #3cabec;
+    }
+    &.ng-dirty.ng-invalid.ng-touched{
+      border:solid 1px $error-color;
+    }
+    &.ng-invalid:not(.ng-pristine):not(.pending):focus
+    {
+      outline-color: $error-color !important; 
+    }
+    &.ng-valid:not(.pending){
+      border:solid thin $valid-color;
+      &:focus{
+        outline-color: $valid-color !important;  
+      }
+    }
+    &#submit{
+      background-color:#5cb85c;
+      color:white;
+      outline: none;
+      border:none;
+      cursor:pointer;
+    }
   }
   small{
     font-size:12px;
-    padding-left:5px;
-    display:none;
-
-
+    display:block;
+    margin-top:12px;
+    min-height:14px;
+    .error{
+      color:$error-color;
+      margin:0px;
+    }
+    .neutral{
+      color:$neutral-color;
+      margin:0px;
+    }
   }
 }
