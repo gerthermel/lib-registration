@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RegistrationModule } from 'registration'
 import { FormsModule } from '@angular/forms';
 import { usernameDirective } from './username.directive'
 import { emailDirective } from './email.directive'
@@ -21,7 +20,6 @@ import { passwordDirective } from './password.directive';
     FormsModule,
     BrowserModule,
     AppRoutingModule,
-    RegistrationModule,
     HttpClientModule,
 
   ],

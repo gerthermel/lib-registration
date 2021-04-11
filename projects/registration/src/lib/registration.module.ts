@@ -23,4 +23,4 @@ import { usernameDirective } from './username.directive';
   ],
   exports: [RegistrationComponent]
 })
-export class RegistrationModule { }
+export class GermelRegistration { }

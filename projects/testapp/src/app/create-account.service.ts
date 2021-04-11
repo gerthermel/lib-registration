@@ -18,6 +18,13 @@ export class CreateAccountService {
   private emailTimeout:any;
   private passwordTimeout:any;
   private timeout:any = 600;
+  public apiUrl:any = 'http://localhost:8080/server/create-account/';
+  public redirect:boolean = false;
+  public redirectUrl:string = ``;
+  public isSuccess = false;
+  public isError = false;
+  public errorMessage:string = '';
+  public isLoading = false;
 
   constructor(
     private http:HttpClient,
@@ -51,9 +58,9 @@ export class CreateAccountService {
         alias.setErrors({'tooShort': true});
       }else{
         new Promise<any>((resolve, reject) =>{
-          this.http.post( 'http://localhost:8080/server/create-account/username', {username: alias.value}, {withCredentials: true} ).subscribe(
+          this.http.post( this.apiUrl+'usernameTakenCheck', {username: alias.value}, {withCredentials: true} ).subscribe(
           (res: any)=>{
-            if( res && res.isTaken == true){
+            if( res && res == true){
               alias.setErrors({'isTaken': true});
             }else{
               alias.setErrors(null);
@@ -85,9 +92,9 @@ export class CreateAccountService {
         c.setErrors({'invalid': true});
       }else{
         const promise = new Promise<any>((resolve, reject) =>{
-          this.http.post( 'https://localhost:8080/server/create-account/email', {email: c.value}, {withCredentials: true} ).subscribe(
+          this.http.post( this.apiUrl+'emailTakenCheck', {email: c.value}, {withCredentials: true} ).subscribe(
           (res: any)=>{
-            if( res && res.isTaken == true){
+            if( res && res == true){
               c.setErrors({'isTaken': true});
             }else{
               c.setErrors(null);

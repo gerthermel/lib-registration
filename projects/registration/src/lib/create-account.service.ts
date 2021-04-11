@@ -19,6 +19,12 @@ export class CreateAccountService {
   private passwordTimeout:any;
   private timeout:any = 600;
   public apiUrl:any;
+  public redirect:boolean = false;
+  public redirectUrl:string = ``;
+  public isSuccess = false;
+  public isError = false;
+  public errorMessage:string = '';
+  public isLoading = false;
 
   constructor(
     private http:HttpClient,
